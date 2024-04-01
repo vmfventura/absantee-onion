@@ -4,6 +4,7 @@ using Application.Services;
 using DataModel.Repository;
 using DataModel.Mapper;
 using Domain.Factory;
+using Domain.IRepository;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddTransient<ColaboratorRepository>();
+builder.Services.AddTransient<IColaboratorRepository, ColaboratorRepository>();
 builder.Services.AddTransient<IColaboratorFactory, ColaboratorFactory>();
 builder.Services.AddTransient<ColaboratorMapper>();
 builder.Services.AddTransient<ColaboratorService>();

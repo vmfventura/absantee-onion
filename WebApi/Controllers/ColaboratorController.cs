@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Application.Services;
 using Application.DTO;
+using Domain.Factory;
 
 namespace WebApi.Controllers
 {

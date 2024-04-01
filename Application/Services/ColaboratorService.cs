@@ -4,23 +4,21 @@ using Domain.Model;
 using Application.DTO;
 
 using Microsoft.EntityFrameworkCore;
-using DataModel.Repository;
+using Domain.IRepository;
 
 public class ColaboratorService {
 
-    private readonly AbsanteeContext _context;
-
-    private readonly ColaboratorRepository _colaboratorRepository;
+    private readonly IColaboratorRepository _colaboratorRepository;
     
-    public ColaboratorService(ColaboratorRepository colaboratorRepository, AbsanteeContext context) {
+    public ColaboratorService(IColaboratorRepository colaboratorRepository) {
         _colaboratorRepository = colaboratorRepository;
-
-        _context = context;
     }
 
     public async Task<IEnumerable<ColaboratorDTO>> GetAllWithAddress()
     {    
         IEnumerable<Colaborator> colabs = await _colaboratorRepository.GetColaboratorsAsync();
+
+        //IEnumerable<Colaborator> colabs2 = _colaboratorRepository.GetAll();
 
         IEnumerable<ColaboratorDTO> colabsDTO = ColaboratorDTO.ToDTO(colabs);
 
@@ -31,18 +29,24 @@ public class ColaboratorService {
     {    
         Colaborator colaborator = await _colaboratorRepository.GetColaboratorByIdAsync(id);
 
-        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
-
-        return colabDTO;
+        if(colaborator!=null)
+        {
+            ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
+            return colabDTO;
+        }
+        return null;
     }
 
     public async Task<ColaboratorDTO> GetByEmailWithAddress(string strEmail)
     {    
         Colaborator colaborator =  await _colaboratorRepository.GetColaboratorByEmailAsync(strEmail);
 
-        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
-
-        return colabDTO;
+        if(colaborator!=null)
+        {
+            ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
+            return colabDTO;
+        }
+        return null;
     }
 
     public async Task<ColaboratorDTO> Add(ColaboratorDTO colaboratorDTO, List<string> errorMessages)
@@ -55,9 +59,9 @@ public class ColaboratorService {
 
         Colaborator colaborator = ColaboratorDTO.ToDomain(colaboratorDTO);
 
-        colaborator = await _colaboratorRepository.Add(colaborator);
+        Colaborator colaboratorSaved = await _colaboratorRepository.Add(colaborator);
 
-        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
+        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaboratorSaved);
 
         return colabDTO;
     }

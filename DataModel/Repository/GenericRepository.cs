@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
+using Domain.IRepository;
+
 namespace DataModel.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class

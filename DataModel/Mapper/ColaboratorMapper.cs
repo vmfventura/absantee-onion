@@ -52,6 +52,9 @@ public class ColaboratorMapper
 
         // pode ser necessário mais atualizações, e com isso o retorno não ser sempre true
         // contudo, porque colaboratorDataModel está a ser gerido pelo DbContext, para atualizarmos a DB, é este que tem de ser alterado, e não criar um novo
+
+        colaboratorDataModel.Address.Street = colaboratorDomain.GetStreet();
+        colaboratorDataModel.Address.PostalCode = colaboratorDomain.GetPostalCode();
         return true;
     }
 
