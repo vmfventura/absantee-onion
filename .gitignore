@@ -9,6 +9,8 @@ dist/
 obj/
 bin/
 
+StrykerOutput/
+
 # Compiled Java class files
 *.class
 
