@@ -4,45 +4,60 @@ using Domain.Model;
 using Application.DTO;
 
 using Microsoft.EntityFrameworkCore;
-using DataModel.Repository;
+using Domain.IRepository;
 
 public class ColaboratorService {
 
-    private readonly AbsanteeContext _context;
+    // private readonly AbsanteeContext _context;
 
-    private readonly ColaboratorRepository _colaboratorRepository;
+    private readonly IColaboratorRepository _colaboratorRepository;
     
-    public ColaboratorService(ColaboratorRepository colaboratorRepository, AbsanteeContext context) {
+    public ColaboratorService(IColaboratorRepository colaboratorRepository) {
         _colaboratorRepository = colaboratorRepository;
 
-        _context = context;
+        // _context = context;
     }
 
     public async Task<IEnumerable<ColaboratorDTO>> GetAllWithAddress()
     {    
         IEnumerable<Colaborator> colabs = await _colaboratorRepository.GetColaboratorsAsync();
+        
+        if (colabs is not null)
+        {
+            IEnumerable<ColaboratorDTO> colabsDTO = ColaboratorDTO.ToDTO(colabs);
 
-        IEnumerable<ColaboratorDTO> colabsDTO = ColaboratorDTO.ToDTO(colabs);
+            return colabsDTO;
+        }
 
-        return colabsDTO;
+        return null;
+
     }
 
     public async Task<ColaboratorDTO> GetByIdWithAddress(long id)
     {    
         Colaborator colaborator = await _colaboratorRepository.GetColaboratorByIdAsync(id);
 
-        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
+        if (colaborator is not null)
+        {
+            ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
 
-        return colabDTO;
+            return colabDTO;
+        }
+        return null;
+
     }
 
     public async Task<ColaboratorDTO> GetByEmailWithAddress(string strEmail)
     {    
         Colaborator colaborator =  await _colaboratorRepository.GetColaboratorByEmailAsync(strEmail);
 
-        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
+        if (colaborator is not null)
+        {
+            ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
 
-        return colabDTO;
+            return colabDTO;
+        }
+        return null;
     }
 
     public async Task<ColaboratorDTO> Add(ColaboratorDTO colaboratorDTO, List<string> errorMessages)
@@ -52,14 +67,21 @@ public class ColaboratorService {
             errorMessages.Add("Already exists");
             return null;
         }
+        try{
 
         Colaborator colaborator = ColaboratorDTO.ToDomain(colaboratorDTO);
 
-        colaborator = await _colaboratorRepository.Add(colaborator);
+        Colaborator colaboratorSaved = await _colaboratorRepository.Add(colaborator);
 
-        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
+        ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaboratorSaved);
 
         return colabDTO;
+        }
+        catch (ArgumentException ex)
+        {
+            errorMessages.Add(ex.Message);
+            return null;
+        }
     }
 
     public async Task<bool> Update(string email, ColaboratorDTO colaboratorDTO, List<string> errorMessages)

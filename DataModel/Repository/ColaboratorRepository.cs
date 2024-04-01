@@ -30,7 +30,8 @@ public class ColaboratorRepository : GenericRepository<Colaborator>, IColaborato
         }
         catch
         {
-            throw;
+            // throw;
+            return null;
         }
     }
 
@@ -47,7 +48,8 @@ public class ColaboratorRepository : GenericRepository<Colaborator>, IColaborato
         }
         catch
         {
-            throw;
+            // throw;
+            return null;
         }
     }
 
@@ -64,7 +66,8 @@ public class ColaboratorRepository : GenericRepository<Colaborator>, IColaborato
         }
         catch
         {
-            throw;
+            // throw;
+            return null;
         }
     }
 
