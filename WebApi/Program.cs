@@ -5,6 +5,10 @@ using DataModel.Repository;
 using DataModel.Mapper;
 using Domain.Factory;
 using Domain.IRepository;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 27b5ebcca87fe39f6866c9913765022427a001e8
 
 var builder = WebApplication.CreateBuilder(args);
 

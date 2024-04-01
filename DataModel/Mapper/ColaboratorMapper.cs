@@ -55,7 +55,6 @@ public class ColaboratorMapper
 
         colaboratorDataModel.Address.Street = colaboratorDomain.GetStreet();
         colaboratorDataModel.Address.PostalCode = colaboratorDomain.GetPostalCode();
-        
         return true;
     }
 
