@@ -28,6 +28,11 @@ builder.Services.AddTransient<IColaboratorFactory, ColaboratorFactory>();
 builder.Services.AddTransient<ColaboratorMapper>();
 builder.Services.AddTransient<ColaboratorService>();
 
+builder.Services.AddTransient<IHolidayPeriodRepository, HolidayPeriodRepository>();
+builder.Services.AddTransient<IHolidayPeriodFactory, HolidayPeriodFactory>();
+builder.Services.AddTransient<HolidayPeriodMapper>();
+builder.Services.AddTransient<HolidayPeriodService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

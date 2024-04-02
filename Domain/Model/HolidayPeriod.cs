@@ -2,6 +2,7 @@ namespace Domain.Model;
 
 public class HolidayPeriod
 {
+	public long Id { get; set; }
 	DateOnly _startDate;
 	DateOnly _endDate;
 

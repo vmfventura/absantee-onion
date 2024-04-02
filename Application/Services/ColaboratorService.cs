@@ -8,20 +8,14 @@ using Domain.IRepository;
 
 public class ColaboratorService {
 
-<<<<<<< HEAD
     // private readonly AbsanteeContext _context;
 
-=======
->>>>>>> 27b5ebcca87fe39f6866c9913765022427a001e8
     private readonly IColaboratorRepository _colaboratorRepository;
     
     public ColaboratorService(IColaboratorRepository colaboratorRepository) {
         _colaboratorRepository = colaboratorRepository;
-<<<<<<< HEAD
 
         // _context = context;
-=======
->>>>>>> 27b5ebcca87fe39f6866c9913765022427a001e8
     }
 
     public async Task<IEnumerable<ColaboratorDTO>> GetAllWithAddress()
@@ -32,16 +26,10 @@ public class ColaboratorService {
         {
             IEnumerable<ColaboratorDTO> colabsDTO = ColaboratorDTO.ToDTO(colabs);
 
-<<<<<<< HEAD
             return colabsDTO;
         }
 
         return null;
-=======
-        //IEnumerable<Colaborator> colabs2 = _colaboratorRepository.GetAll();
-
-        IEnumerable<ColaboratorDTO> colabsDTO = ColaboratorDTO.ToDTO(colabs);
->>>>>>> 27b5ebcca87fe39f6866c9913765022427a001e8
 
     }
 
