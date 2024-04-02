@@ -49,7 +49,7 @@ public class ColaboratorService {
     {    
         Colaborator colaborator = await _colaboratorRepository.GetColaboratorByIdAsync(id);
 
-<<<<<<< HEAD
+
         if (colaborator is not null)
         {
             ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
@@ -57,31 +57,17 @@ public class ColaboratorService {
             return colabDTO;
         }
         return null;
-
-=======
-        if(colaborator!=null)
-        {
-            ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
-            return colabDTO;
-        }
-        return null;
->>>>>>> 27b5ebcca87fe39f6866c9913765022427a001e8
     }
 
     public async Task<ColaboratorDTO> GetByEmailWithAddress(string strEmail)
     {    
         Colaborator colaborator =  await _colaboratorRepository.GetColaboratorByEmailAsync(strEmail);
 
-<<<<<<< HEAD
+
         if (colaborator is not null)
         {
             ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
 
-=======
-        if(colaborator!=null)
-        {
-            ColaboratorDTO colabDTO = ColaboratorDTO.ToDTO(colaborator);
->>>>>>> 27b5ebcca87fe39f6866c9913765022427a001e8
             return colabDTO;
         }
         return null;
