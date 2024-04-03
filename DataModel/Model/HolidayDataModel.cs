@@ -4,8 +4,8 @@ namespace DataModel.Model;
 public class HolidayDataModel
 {
     public long Id { get; set; }
-    public ColaboratorDataModel ColaboratorDataModel;
-    public List<HolidayPeriodDataModel> HolidayPeriods;
+    public ColaboratorDataModel ColaboratorDataModel { get; set; }
+    public List<HolidayPeriodDataModel> HolidayPeriods { get; set; }
 
     public HolidayDataModel()
     {            
