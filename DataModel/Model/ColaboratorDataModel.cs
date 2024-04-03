@@ -1,6 +1,5 @@
 namespace DataModel.Model;
 
-using DataModel.Model;
 using Domain.Model;
 
 public class ColaboratorDataModel
@@ -12,12 +11,21 @@ public class ColaboratorDataModel
 
     public ColaboratorDataModel() {}
 
-    public ColaboratorDataModel(Colaborator colab)
-    {
-        Id = colab.Id;
-        Email = colab.Email;
-        Name = colab.GetName();
+    // public ColaboratorDataModel(Colaborator colab)
+    // {
+    //     Id = colab.Id;
+    //     Email = colab.GetEmail();
+    //     Name = colab.GetName();
 
-        Address = new AddressDataModel(colab.Address);
+    //     Address = new AddressDataModel(colab.Address);
+    // }
+
+    public ColaboratorDataModel(IColaborator colab) {
+        Id = colab.Id;
+        Email = colab.GetEmail();
+        Name = colab.GetName();
+        
+        Address = new AddressDataModel(colab.GetAddress());
+
     }
 }

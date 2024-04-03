@@ -2,7 +2,7 @@ namespace Domain.Factory;
 
 using Domain.Model;
 
-public class HolidayFactory
+public class HolidayFactory : IHolidayFactory
 {
     public Holiday NewHoliday(IColaborator colaborator)
     {

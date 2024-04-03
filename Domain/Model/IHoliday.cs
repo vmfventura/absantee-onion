@@ -8,4 +8,6 @@ public interface IHoliday
 
     public List<HolidayPeriod> GetHolidayPeriodsDuring(DateOnly startDate, DateOnly endDate);
 
+    public IColaborator GetColaborator();
+    // public List<HolidayPeriod> GetHolidayPeriods();
 }

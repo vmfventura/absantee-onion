@@ -33,6 +33,11 @@ builder.Services.AddTransient<IHolidayPeriodFactory, HolidayPeriodFactory>();
 builder.Services.AddTransient<HolidayPeriodMapper>();
 builder.Services.AddTransient<HolidayPeriodService>();
 
+builder.Services.AddTransient<IHolidayRepository, HolidayRepository>();
+builder.Services.AddTransient<IHolidayFactory, HolidayFactory>();
+builder.Services.AddTransient<HolidayMapper>();
+builder.Services.AddTransient<HolidayService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

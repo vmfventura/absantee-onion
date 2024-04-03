@@ -89,7 +89,7 @@ public class Colaborator : IColaborator
 
 	// public long getId()
 	// {
-	// 	return id;
+	// 	return Id;
 	// }
 
 	public string GetName() {
@@ -114,5 +114,10 @@ public class Colaborator : IColaborator
 	public string GetPostalCode()
 	{
 		return _address.PostalCode;
+	}
+
+	public Address GetAddress()
+	{
+		return _address;
 	}
 }

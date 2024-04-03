@@ -1,23 +1,41 @@
 namespace Domain.Model;
 
+using System.ComponentModel.DataAnnotations;
 using Domain.Factory;
 
 public class Holiday : IHoliday
 {
+	public long Id { get; set; }
+	
+	[Key]
 	private IColaborator _colaborator;
+	public IColaborator Colaborador
+	{
+		get { return _colaborator; }
+	}
 
 	private List<HolidayPeriod> _holidayPeriods = new List<HolidayPeriod>();
-
-	private IColaborator Colaborador;
-	// {
-	// 	get { return _colaborator; }
-	// }
+	public List<HolidayPeriod> HolidayPeriods
+	{
+		get { return _holidayPeriods; }
+	}
 
 	public Holiday(IColaborator colab)
 	{
 		if (colab != null)
 		{
 			_colaborator = colab;
+		}
+		else
+			throw new ArgumentException("Invalid argument: colaborator must be non null");
+	}
+
+	public Holiday (IColaborator colab, List<HolidayPeriod> holidayPeriods)
+	{
+		if (colab is not null && holidayPeriods is not null)
+		{
+			_colaborator = colab;
+			_holidayPeriods = holidayPeriods;
 		}
 		else
 			throw new ArgumentException("Invalid argument: colaborator must be non null");
@@ -77,4 +95,14 @@ public class Holiday : IHoliday
 	{
 		return _colaborator == colab;
 	}
+
+	public IColaborator GetColaborator()
+	{
+		return _colaborator;
+	}
+
+	// public List<HolidayPeriod> GetHolidayPeriods()
+	// {
+	// 	return _holidayPeriods;
+	// }
 }

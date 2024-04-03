@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Domain.Model;
 
-public class HolidayPeriod
+public class HolidayPeriod : IHolidayPeriod
 {
+	[Key]
 	public long Id { get; set; }
 	DateOnly _startDate;
 	DateOnly _endDate;
@@ -45,4 +48,3 @@ public class HolidayPeriod
 		return endDateDays - startDateDays;
 	}
 }
-

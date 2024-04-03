@@ -1,10 +1,12 @@
 namespace Domain.Model;
 
-public interface IColaborator 
+public interface IColaborator
 {
-	//long GetId();
+	long Id { get; }
+	// long GetId();
 	string GetEmail();
 	string GetName();
 	string GetStreet();
 	string GetPostalCode();
+	Address GetAddress();
 }

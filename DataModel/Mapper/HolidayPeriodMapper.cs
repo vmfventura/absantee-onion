@@ -11,6 +11,7 @@ namespace DataModel.Mapper
     public class HolidayPeriodMapper
     {
         private IHolidayPeriodFactory _holidayPeriodFactory;
+        
         public HolidayPeriodMapper(IHolidayPeriodFactory holidayPeriodFactory)
         {
             _holidayPeriodFactory = holidayPeriodFactory;

@@ -19,6 +19,7 @@ public class AbsanteeContext : DbContext
 	public virtual DbSet<ColaboratorDataModel> Colaborators { get; set; } = null!;
 	public virtual DbSet<AddressDataModel> Address { get; set; } = null!;
 	public virtual DbSet<HolidayPeriodDataModel> HolidayPeriod { get; set; } = null!;
+	public virtual DbSet<HolidayDataModel> Holiday { get; set; } = null!;
 
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
