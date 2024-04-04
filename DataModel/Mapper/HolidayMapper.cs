@@ -23,6 +23,7 @@ public class HolidayMapper
                                 holidayDM.ColaboratorDataModel.Address.Street, 
                                 holidayDM.ColaboratorDataModel.Address.PostalCode);
         Holiday holiday = _holidayFactory.NewHoliday(colab);
+        holiday.Id = holidayDM.Id;
         foreach (var holidayPeriods in holidayDM.HolidayPeriods)
         {
             IHolidayPeriodFactory _holidayPeriodFactory = new HolidayPeriodFactory();

@@ -12,8 +12,9 @@ public class HolidayDTO
     {        
     }
 
-    public HolidayDTO(long Id, ColaboratorDTO colaborator, List<HolidayPeriodDTO> holidayPeriods)
+    public HolidayDTO(long id, ColaboratorDTO colaborator, List<HolidayPeriodDTO> holidayPeriods)
     {
+        Id = id;
         Colaborator = colaborator;
         HolidayPeriods = holidayPeriods;
     }

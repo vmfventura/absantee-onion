@@ -22,7 +22,11 @@ public class HolidayRepository : GenericRepository<Holiday>, IHolidayRepository
     {
         try
         {
-            IEnumerable<HolidayDataModel> holidaysDataModel = await _context.Set<HolidayDataModel>().ToListAsync();
+            IEnumerable<HolidayDataModel> holidaysDataModel = await _context.Set<HolidayDataModel>()
+                .Include(h => h.ColaboratorDataModel)
+                .Include(h => h.HolidayPeriods)
+                .Include(h => h.ColaboratorDataModel.Address)
+                .ToListAsync();
             IEnumerable<Holiday> holidays = _holidayMapper.ToDomain(holidaysDataModel);
             return holidays;
         }
@@ -37,6 +41,9 @@ public class HolidayRepository : GenericRepository<Holiday>, IHolidayRepository
         try
         {
             HolidayDataModel holidayDataModel = await _context.Set<HolidayDataModel>()
+                        .Include(h => h.ColaboratorDataModel)
+                        .Include(h => h.HolidayPeriods)
+                        .Include(h => h.ColaboratorDataModel.Address)
                         .FirstAsync(h => h.Id == id);
 
             Holiday holiday = _holidayMapper.ToDomain(holidayDataModel);

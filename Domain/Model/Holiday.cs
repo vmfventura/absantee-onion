@@ -5,9 +5,9 @@ using Domain.Factory;
 
 public class Holiday : IHoliday
 {
+	[Key]
 	public long Id { get; set; }
 	
-	[Key]
 	private IColaborator _colaborator;
 	public IColaborator Colaborador
 	{
