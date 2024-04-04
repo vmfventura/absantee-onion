@@ -46,6 +46,12 @@ public class HolidayService
             errorMessages.Add("Already exists");
             return null;
         }
+        bool holidayColaboratorExists = await _holidayRepository.HolidayExistsByColaborator(holidayDTO.Colaborator.Email);
+        if (holidayColaboratorExists)
+        {
+            errorMessages.Add("Colaborator already has a holiday");
+            return null;
+        }
         try
         {
             Holiday holiday = HolidayDTO.ToDomain(holidayDTO);

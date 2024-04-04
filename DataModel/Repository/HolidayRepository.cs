@@ -106,4 +106,8 @@ public class HolidayRepository : GenericRepository<Holiday>, IHolidayRepository
     {
         return await _context.Set<HolidayDataModel>().AnyAsync(h => h.Id == id);
     }
+    public async Task<bool> HolidayExistsByColaborator(string email)
+    {
+        return await _context.Set<HolidayDataModel>().AnyAsync(h => h.ColaboratorDataModel.Email == email);
+    }
 }
