@@ -14,8 +14,6 @@ public class ColaboratorService {
     
     public ColaboratorService(IColaboratorRepository colaboratorRepository) {
         _colaboratorRepository = colaboratorRepository;
-
-        // _context = context;
     }
 
     public async Task<IEnumerable<ColaboratorDTO>> GetAllWithAddress()
@@ -104,4 +102,6 @@ public class ColaboratorService {
             return false;
         }
     }
+
+    
 }

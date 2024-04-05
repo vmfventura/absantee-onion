@@ -1,6 +1,7 @@
 namespace Domain.Model;
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Factory;
 
 public class Holiday : IHoliday
@@ -25,17 +26,6 @@ public class Holiday : IHoliday
 		if (colab != null)
 		{
 			_colaborator = colab;
-		}
-		else
-			throw new ArgumentException("Invalid argument: colaborator must be non null");
-	}
-
-	public Holiday (IColaborator colab, List<HolidayPeriod> holidayPeriods)
-	{
-		if (colab is not null && holidayPeriods is not null)
-		{
-			_colaborator = colab;
-			_holidayPeriods = holidayPeriods;
 		}
 		else
 			throw new ArgumentException("Invalid argument: colaborator must be non null");
@@ -100,9 +90,4 @@ public class Holiday : IHoliday
 	{
 		return _colaborator;
 	}
-
-	// public List<HolidayPeriod> GetHolidayPeriods()
-	// {
-	// 	return _holidayPeriods;
-	// }
 }

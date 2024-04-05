@@ -7,29 +7,22 @@ using Domain.Factory;
 
 public class HolidayMapper
 {
-    public IHolidayFactory _holidayFactory;
+    private IHolidayFactory _holidayFactory;
+
+    private ColaboratorMapper _colaboratorMapper;
     
 
-    public HolidayMapper(IHolidayFactory holidayFactory)
+    public HolidayMapper(IHolidayFactory holidayFactory, ColaboratorMapper colaboratorMapper)
     {
         _holidayFactory = holidayFactory;
+        _colaboratorMapper = colaboratorMapper;
     }
 
     public Holiday ToDomain(HolidayDataModel holidayDM)
     {
-        IColaborator colab = new Colaborator(
-                                holidayDM.ColaboratorDataModel.Name, 
-                                holidayDM.ColaboratorDataModel.Email, 
-                                holidayDM.ColaboratorDataModel.Address.Street, 
-                                holidayDM.ColaboratorDataModel.Address.PostalCode);
-        Holiday holiday = _holidayFactory.NewHoliday(colab);
+        IColaborator colaborator = _colaboratorMapper.ToDomain(holidayDM.Colaborator);
+        Holiday holiday = _holidayFactory.NewHoliday(colaborator);
         holiday.Id = holidayDM.Id;
-        foreach (var holidayPeriods in holidayDM.HolidayPeriods)
-        {
-            IHolidayPeriodFactory _holidayPeriodFactory = new HolidayPeriodFactory();
-            _holidayPeriodFactory.NewHolidayPeriod(holidayPeriods.StartDate, holidayPeriods.EndDate);
-            holiday.AddHolidayPeriod(_holidayPeriodFactory, holidayPeriods.StartDate, holidayPeriods.EndDate);
-        }
         return holiday;
     }
 
@@ -50,9 +43,9 @@ public class HolidayMapper
         return holidayDM;
     }
 
-    public bool UpdateDataModel (HolidayDataModel holidayDM, Holiday holiday)
-    {
-        holidayDM.ColaboratorDataModel = (ColaboratorDataModel)holiday.GetColaborator();
-        return true;
-    }
+    // public bool UpdateDataModel (HolidayDataModel holidayDM, Holiday holiday)
+    // {
+    //     // holidayDM.ColaboratorId = holiday.Colaborador.Id;
+    //     return true;
+    // }
 }

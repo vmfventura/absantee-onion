@@ -10,9 +10,12 @@ public class HolidayService
 {
     private readonly IHolidayRepository _holidayRepository;
 
-    public HolidayService(IHolidayRepository holidayRepository)
+    private readonly IColaboratorRepository _colaboratorRepository;
+
+    public HolidayService(IHolidayRepository holidayRepository, IColaboratorRepository colaboratorRepository)
     {
         _holidayRepository = holidayRepository;
+        _colaboratorRepository = colaboratorRepository;
     }
 
     public async Task<IEnumerable<HolidayDTO>> GetAllHolidays()
@@ -46,15 +49,17 @@ public class HolidayService
             errorMessages.Add("Already exists");
             return null;
         }
-        bool holidayColaboratorExists = await _holidayRepository.HolidayExistsByColaborator(holidayDTO.Colaborator.Email);
-        if (holidayColaboratorExists)
+        bool cExists = await _colaboratorRepository.ColaboratorExists(holidayDTO.ColaboratorEmail);
+        if (!cExists)
         {
-            errorMessages.Add("Colaborator already has a holiday");
+            errorMessages.Add("Colaborator doesnt exist");
             return null;
         }
+
+        Colaborator colaborator = await _colaboratorRepository.GetColaboratorByEmailAsync(holidayDTO.ColaboratorEmail);
         try
         {
-            Holiday holiday = HolidayDTO.ToDomain(holidayDTO);
+            Holiday holiday = HolidayDTO.ToDomain(holidayDTO, colaborator);
             Holiday holidaySaved = await _holidayRepository.Add(holiday);
             HolidayDTO holidayDTOSaved = HolidayDTO.ToDTO(holidaySaved);
             return holidayDTOSaved;

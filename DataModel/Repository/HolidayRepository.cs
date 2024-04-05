@@ -23,9 +23,6 @@ public class HolidayRepository : GenericRepository<Holiday>, IHolidayRepository
         try
         {
             IEnumerable<HolidayDataModel> holidaysDataModel = await _context.Set<HolidayDataModel>()
-                .Include(h => h.ColaboratorDataModel)
-                .Include(h => h.HolidayPeriods)
-                .Include(h => h.ColaboratorDataModel.Address)
                 .ToListAsync();
             IEnumerable<Holiday> holidays = _holidayMapper.ToDomain(holidaysDataModel);
             return holidays;
@@ -41,9 +38,6 @@ public class HolidayRepository : GenericRepository<Holiday>, IHolidayRepository
         try
         {
             HolidayDataModel holidayDataModel = await _context.Set<HolidayDataModel>()
-                        .Include(h => h.ColaboratorDataModel)
-                        .Include(h => h.HolidayPeriods)
-                        .Include(h => h.ColaboratorDataModel.Address)
                         .FirstAsync(h => h.Id == id);
 
             Holiday holiday = _holidayMapper.ToDomain(holidayDataModel);
@@ -77,37 +71,33 @@ public class HolidayRepository : GenericRepository<Holiday>, IHolidayRepository
         }
     }
 
-    public async Task<Holiday> Update(Holiday holiday, List<string> errorMessages)
-    {
-        try
-        {
-            HolidayDataModel holidayDataModel = await _context.Set<HolidayDataModel>()
-                            .FirstAsync(h => h.Id == holiday.Id);
+    // public async Task<Holiday> Update(Holiday holiday, List<string> errorMessages)
+    // {
+    //     try
+    //     {
+    //         HolidayDataModel holidayDataModel = await _context.Set<HolidayDataModel>()
+    //                         .FirstAsync(h => h.Id == holiday.Id);
             
-            _holidayMapper.UpdateDataModel(holidayDataModel, holiday);
-            _context.Entry(holidayDataModel).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return holiday;
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!await HolidayExists(holiday.Id))
-            {
-                errorMessages.Add("Not found");
-                return null;
-            }
-            else
-            {
-                throw;
-            }
-        }
-    }
+    //         _holidayMapper.UpdateDataModel(holidayDataModel, holiday);
+    //         _context.Entry(holidayDataModel).State = EntityState.Modified;
+    //         await _context.SaveChangesAsync();
+    //         return holiday;
+    //     }
+    //     catch (DbUpdateConcurrencyException)
+    //     {
+    //         if (!await HolidayExists(holiday.Id))
+    //         {
+    //             errorMessages.Add("Not found");
+    //             return null;
+    //         }
+    //         else
+    //         {
+    //             throw;
+    //         }
+    //     }
+    // }
     public async Task<bool> HolidayExists(long id)
     {
         return await _context.Set<HolidayDataModel>().AnyAsync(h => h.Id == id);
-    }
-    public async Task<bool> HolidayExistsByColaborator(string email)
-    {
-        return await _context.Set<HolidayDataModel>().AnyAsync(h => h.ColaboratorDataModel.Email == email);
     }
 }

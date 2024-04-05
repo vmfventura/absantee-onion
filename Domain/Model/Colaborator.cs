@@ -9,7 +9,6 @@ public class Colaborator : IColaborator
 
 	public long Id {get; set;}
 
-	[Key]
     private string _strEmail;
 	public string Email
 	{
@@ -23,13 +22,14 @@ public class Colaborator : IColaborator
 	}
 
 	private Address _address;
-	public Address Address
+    private long colaboratorId;
+
+    public Address Address
 	{
 		get { return _address; }
 	}
 
 	private Colaborator() {}
-
     public Colaborator(string strName, string strEmail, string street, string postalCode) {
 
 		if ( IsValidParameters(strName, strEmail) ) {
@@ -42,8 +42,8 @@ public class Colaborator : IColaborator
 			throw new ArgumentException("Invalid arguments: " + strName + ", " + strEmail);
 		}
 	}
-
-	private bool IsValidParameters(string strName, string strEmail) {
+	
+    private bool IsValidParameters(string strName, string strEmail) {
 
 		if( strName==null ||
 			strName.Length > 50 ||

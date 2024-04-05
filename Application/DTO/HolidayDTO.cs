@@ -5,31 +5,25 @@ using Domain.Model;
 public class HolidayDTO
 {
     public long Id { get; set; }
-    public ColaboratorDTO Colaborator { get; set; }
-    public List<HolidayPeriodDTO> HolidayPeriods { get; set; }
+    public string ColaboratorEmail { get; set; }
 
     public HolidayDTO()
     {        
     }
 
-    public HolidayDTO(long id, ColaboratorDTO colaborator, List<HolidayPeriodDTO> holidayPeriods)
+    public HolidayDTO(long id, string colaboratorEmail)
     {
         Id = id;
-        Colaborator = colaborator;
-        HolidayPeriods = holidayPeriods;
+        ColaboratorEmail = colaboratorEmail;
     }
 
     public static HolidayDTO ToDTO(Holiday holiday)
     {
-        HolidayDTO holidayDTO = new HolidayDTO(holiday.Id,
-                    new ColaboratorDTO(
-                            holiday.Colaborador.Id, 
-                            holiday.Colaborador.GetName(), 
-                            holiday.Colaborador.GetEmail(),
-                            holiday.Colaborador.GetStreet(),
-                            holiday.Colaborador.GetPostalCode()
-                    ), 
-                    HolidayPeriodDTO.ToDTO(holiday.HolidayPeriods).ToList());
+        Colaborator colab = (Colaborator)holiday.Colaborador;
+        ColaboratorDTO colaboratorDTO = ColaboratorDTO.ToDTO(colab);
+
+        HolidayDTO holidayDTO = new HolidayDTO(holiday.Id, colaboratorDTO.Email);
+
         return holidayDTO;
     }
 
@@ -45,13 +39,9 @@ public class HolidayDTO
         return holidayDTOs;
     }
 
-    public static Holiday ToDomain(HolidayDTO holidayDTO)
+    public static Holiday ToDomain(HolidayDTO holidayDTO, Colaborator colab)
     {
-        List<HolidayPeriod> holidayPeriods = holidayDTO.HolidayPeriods.Select(hp => HolidayPeriodDTO.ToDomain(hp)).ToList();
-        Holiday holiday = new Holiday(
-                        ColaboratorDTO.ToDomain(holidayDTO.Colaborator),
-                        holidayPeriods
-    );
+        Holiday holiday = new Holiday(colab);
         return holiday;
     }
 }

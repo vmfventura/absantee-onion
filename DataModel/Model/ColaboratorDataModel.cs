@@ -1,10 +1,12 @@
 namespace DataModel.Model;
 
+using System.ComponentModel.DataAnnotations;
 using Domain.Model;
 
 public class ColaboratorDataModel
 {
     public long Id { get; set; }
+    [Key]
     public string Email { get; set; }
 	public string Name { get; set; }
     public AddressDataModel Address { get; set; }
